@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Погода</title>
+</head>
+<body>
+    <h2>Прогноз погоди</h2>
+    <p id="temp"></p>
+    <p id="desc"></p>
+    <img id="icon" />
+
+    <script>
+        const apiKey = "6f4b65ba62a27f4df755cd44939d84a1";
+        const city = "Kyiv";
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=6f4b65ba62a27f4df755cd44939d84a1&units=metric&lang=ua`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("temp").innerText =
+                    "Температура: " + data.main.temp + "°C";
+
+                document.getElementById("desc").innerText =
+                    "Опис: " + data.weather[0].description;
+
+                const iconCode = data.weather[0].icon;
+                document.getElementById("icon").src =
+                    `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+            });
+    </script>
+</body>
+</html>
